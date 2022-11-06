@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/padres-world-series-runs-1998-2022/index.html",
+    "href": "posts/padres-world-series-runs-1998-2022/index.html",
+    "title": "The 2022 Padres did not get as far as the 1998 Padres, but there is hope for the future!",
+    "section": "",
+    "text": "My hypothesis is that the 1998 San Diego Padres got to the World Series because they were a far more dominant team than the 2022 Padres, in almost all scoring categories. The 2022 Padres did have arm power, but only made it as far as they did on pure momentum, until they finally met their kryptonite, the Philadelphia Phillies. But, to get there, the 22’ Padres went through the 101-61 New York Mets, and the number one team in the league and rival, the 111–51 Los Angeles Dodgers. Does this proves that the Padres of new are headed in the right direction to make it slightly further than the 98’ Padres and actually win a World Series?\nHow does the 2022 Padres scoring and batting production numbers compare to that of the 1998 Padres?\nThe first chart, a line chart, I’ll look at total runs the Padres have scored per year since 1998, to see how their 98’ World Series appearance year compares to this years 2022 NLCS run, to see who scored the most regular season runs:\n\n\nCode\nlibrary(tidyverse)\nlibrary(ggalt)\nlibrary(ggrepel)\n\nbaseballstats <- read_csv(\"baseballstats.csv\")\n\nsd <- baseballstats %>% filter(tm == \"San Diego Padres\")\nlabels <- sd %>% filter(season == 1998 | season == 2022)\ntwoyears <- sd %>% filter(season == 1998 | season == 2022)\n\nggplot() + \n  geom_line(data=baseballstats, aes(x=season, y=r, group = tm), color=\"seashell3\") +\n  geom_line(data=sd, aes(x=season, y=r, group = tm), color=\"#2F241D\") +\n  geom_text_repel(data=labels, aes(x=season, y=r, label=season)) +\n  labs(x=\"Season\", y=\"Runs\", title=\"The 98' Padres scored more runs than the 22' Padres\", subtitle=\"Leading to 11 more wins than the 22' Padres.\", caption=\"Source: https://www.baseball-reference.com | By Mady Vinci\")  + theme_minimal() + \n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    axis.title = element_text(size = 8), \n    plot.subtitle = element_text(size=10), \n    panel.grid.minor = element_blank()\n    )\n\n\n\n\n\nSo, by looking at this, the 1998 Padres only actually scored a handful more runs, driving them to have 11 more regular season wins than the 2022 Padres. But how many of those were home runs…or possibly from triples or doubles?\nIn this stacked bar chart, I’ll look at total season home runs, triples, and doubles:\n\n\nCode\nsdlong <- sd %>% select(season, x2b, x3b, hr) %>% pivot_longer(cols = -season, names_to = \"hits\", values_to = \"number\")\n\nggplot() + \n  geom_bar(\n    data=sdlong, \n    aes(x=season, weight=number, fill=hits)) + \n  coord_flip() +\n  scale_x_continuous(breaks = c(1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018, 2020, 2022)) +\n  scale_fill_manual(values = c(\"#A2AAAD\", \"#E35205\", \"#041E42\"), labels = c(\"Doubles\", \"Triples\", \"Homeruns\")) +\nlabs(x=\"Year\", y=\"Extra Base Hits\", title=\"The 98' Padres had more extra base hits, but not by much\", subtitle=\"The 98' season was actually on of the Padres best hitting seasons in years.\", caption=\"Source: https://www.baseball-reference.com | By Mady Vinci\") + \n  theme_minimal() + \n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    axis.title = element_text(size = 8), \n    plot.subtitle = element_text(size=10), \n    panel.grid.minor = element_blank()\n    )\n\n\n\n\n\nThe 98’ Padres do not have any drastically higher numbers than the 22’ Padres. SO maybe the score does not tell the story, but rather their consistency at the plate?\nIn this lollipop chart, I’m taking at look at the team’s batting average for each year:\n\n\nCode\nggplot() + \n  geom_lollipop(\n    data=sd, \n    aes(y=reorder(season, ba), x=ba), \n    horizontal = TRUE\n  )+\n  geom_lollipop(\n    data=twoyears,\n    aes(y=reorder(season, ba), x=ba),\n    horizontal = TRUE,\n    color = \"#FFC425\"\n      )+\nlabs(x=\"Batting Average\", y=\"Year\", title=\"The 98' Padres hitters were slightly more consistent\", subtitle=\"Getting them on base more and leading to more runs, driving them to a better record than the 22' Padres.\", caption=\"Source: https://www.baseball-reference.com | By Mady Vinci\") + \n  theme_minimal() + \n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    axis.title = element_text(size = 8), \n    plot.subtitle = element_text(size=10), \n    panel.grid.minor = element_blank()\n    )\n\n\n\n\n\nAfter some investigating, the 2022 Padres numbers are just slightly lower than the 1998 Padres hitting and scoring numbers. I guess that is why the 22’ Padres only fell one series short of where the 98’ Padres did. With star player Fernando Tatis Jr. coming back, and additions of Juan Soto, Josh Bell, and Brandon Drury, the current Padres seem to be trending in the right directions towards a World Series appearance and possible win (knock-on-wood)."
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "vinci_project_1",
+    "section": "",
+    "text": "mlb\n\n\npadres\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 6, 2022\n\n\nMady Vinci\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 21, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nOct 18, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  }
+]
